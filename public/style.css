@@ -1,0 +1,48 @@
+body{
+	font-size:60px;
+}
+p {
+	margin: 5px;
+}
+h3 {
+	height: 100px;
+	margin: 3;
+}
+div {
+	display: flex;
+	flex-direction: row;
+}
+input[type=radio]{
+	width: 50px;
+	height: 50px;
+}
+input {
+	width: 100%;
+	font-size:90px;
+	height: 100px:
+}
+input[type=number] {
+	border: 2px solid blue;
+	width: 33%;
+}
+.summary {
+	font-size: 55px;
+}
+table {
+	margin-top: 30px;
+	width: 100%;
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	font-size:45px;
+	border-spacing: 0;
+}
+table td {
+	padding: 10px 30px;
+	border-bottom: 1px solid black;
+	border-right: 1px solid black;
+}
+table th {
+	padding: 10px 30px;
+	border-bottom: 1px solid black;
+	border-right: 1px solid black;
+}

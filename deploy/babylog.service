@@ -1,0 +1,11 @@
+[Unit]
+Description=NodeJS babylog service
+After=network-online.target
+
+[Service]
+Restart=on-failure
+WorkingDirectory=/home/ubuntu/babylog
+ExecStart=/home/ubuntu/babylog/srv.js
+
+[Install]
+WantedBy=multi-user.target
