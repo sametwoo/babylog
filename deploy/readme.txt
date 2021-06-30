@@ -9,6 +9,7 @@ On Background Service:
 
 On Database:
 1.'sudo apt install postgresql-10'
+1.1 'sudo passwd postgres' then enter password
 2.'su - postgres'
 3.'psql'
 4.'create role '$USER' createdb password xx'
@@ -28,5 +29,9 @@ On NodeJS app:
 1.sudo apt install node
 2.npm i node-postgres
 3.npm i express
+3.1 npm i pg
+3.2 sudo npm i -g n
+3.3 sudo n stable
+3.4 sudo n    (to upgrade node.js)
 4.create 'public' folder in the same directory of srv.js
 5.create 'style.css' in 'public' folder
