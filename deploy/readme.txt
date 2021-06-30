@@ -24,6 +24,19 @@ On Database:
 13.'create index on poops time desc;'
 14.'\q' exit psql
 show constraints and indexes of table: '\d+ <tablename>'
+---OR---
+Database backup and restore:
+1.backup: 'pg_dump -t baby>baby.tar'
+2.restore:
+2.1 'sudo apt install postgresql'
+2.2 'sudo passwd postgres' and enter password
+2.3 'su - postgres'
+2.4 'psql'
+2.5 'create role $USER createdb password xx'
+2.6 '\q' and login with user
+2.7 'createdb baby'
+2.8 '\q'
+2.9 pg_restore -d baby baby.tar
 
 On NodeJS app:
 1.sudo apt install node
@@ -35,3 +48,7 @@ On NodeJS app:
 3.4 sudo n    (to upgrade node.js)
 4.create 'public' folder in the same directory of srv.js
 5.create 'style.css' in 'public' folder
+
+
+On Timezone:
+sudo timedatectl set-timezone Asia/Shanghai
