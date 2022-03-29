@@ -13,7 +13,7 @@ app.use(express.static('public'));
 app.get('/query',(req, res)=>{
 	var nowTime=new Date();
 	res.setHeader('Content-Type','text/html');
-	html="<html><head><link rel='stylesheet' type='text/css' href='style.css'/></head><body><form action='/save' method='get'><div><h3>奶粉</h3><input type='number' name='milk'/><h3>母乳</h3><input type='number' name='natrual'/></div><h3>大小便</h3><input type='radio' name='poops' value='11'/>撒尿了<input type='radio' name='poops' value='12'/>尿很多<input type='radio' name='poops' value='1'/>拉屎了<input type='radio' name='poops' value='2'/>屎很多<p><input type='submit' value='提交'/></p></form>"
+	html="<!doctype html><html lang='en'><head><meta name='viewport' content='with=device-width,initial-scale=1,shrink-to-fit=no'><link rel='stylesheet' type='text/css' href='bootstrap.min.css'/><link rel='stylesheet' type='text/css' href='style.css'></head><body><form action='/save' method='get' role='form'><div class='row m-1 g-0'><div class='col'><input type='number' name='milk' id='milk' class='form-control' placeholder='奶粉'/></div><div class='col col-1'></div><div class='col'><input type='number' id='natrual' name='natrual' class='form-control col pl-3' placeholder='母乳'/></div></div><div class='m-1 row'><select class='form-select' id='poops' name='poops'><option selected value='-1'>记录大小便</option><option value='11'>撒尿了</option><option value='12'>尿很多</option><option value='1'>拉屎了</option><option value='2'>屎很多</option></select></div><div class='row m-1'><input type='submit' value='提  交' class='btn btn-success'/></div></form>"
 	var historymilk='';
 	var historypoops='';
     var summary='';
@@ -21,7 +21,7 @@ app.get('/query',(req, res)=>{
     var ts0, ts1;
 	const pMilk=pool.query("SELECT * FROM milk WHERE EXTRACT(EPOCH FROM (now()-time))<24*3600*3 ORDER BY time DESC;").then(rs=>{
         ts0=rs;
-        var t0="<p><table><tr><th>哺喂时间</th><th>牛奶</th><th>母乳</th</tr>"
+        var t0="<p><table class='table table-striped table-primary'><tr class='table-dark'><th>哺喂时间</th><th>牛奶</th><th>母乳</th</tr>"
         for(i=0; i<rs.rows.length; i++) {
 			t=new Date(rs.rows[i].time);
 			m=rs.rows[i].milk;
@@ -35,7 +35,7 @@ app.get('/query',(req, res)=>{
 	});
 	const pPoops=pool.query("SELECT * FROM poops WHERE poops>0 AND EXTRACT(EPOCH FROM (now()-time))<24*3600*3 ORDER BY time DESC;").then(rs=>{
         ts1=rs;
-		var t1="<p><table><tr><th>检查时间</th><th>大小便</th></tr>"
+		var t1="<p><table class='table table-striped table-secondary'><tr class='table-dark'><th>检查时间</th><th>大小便</th></tr>"
         for(i=0; i<rs.rows.length; i++) {
 			t=new Date(rs.rows[i].time);
 			m=rs.rows[i].poops;
@@ -71,7 +71,7 @@ app.get('/query',(req, res)=>{
             if(poops>10) {pe24++;}
             else if(poops>0 && poops<10) {pp24++;}
         }
-        s0='<p><table class="summary">'
+        s0='<p><table class="table table-warning table-striped">'
         s0+="<tr><td>距上次哺喂时间</td><td>"+tslf+"小时</td></tr>"
         s0+="<tr><td>24小时内哺喂次数</td><td>"+nf24+"</td></tr>"
         s0+="<tr><td>24小时内哺喂奶量</td><td>"+qf24+"毫升</td></tr>"
@@ -85,9 +85,9 @@ app.get('/query',(req, res)=>{
         for(i=0; i<rs.rows.length; i++) {
             v0+=(rs.rows[i].milk+rs.rows[i].natrual);
         }
-        v1=(nowTime-Date.parse(rs.rows[0].time))/1000/3600*25;
+        v1=(nowTime-Date.parse(rs.rows[0].time))/1000/3600*41.67;
         q0=(v1-v0)/rs.rows.length;
-        q1=(nowTime-Date.parse(rs.rows[rs.rows.length-1].time))/1000/3600*25;
+        q1=(nowTime-Date.parse(rs.rows[rs.rows.length-1].time))/1000/3600*41.67;
         rc0='<p>少于建议标准：'+q0.toFixed(2)+'('+(v1-v0).toFixed(2)+')毫升</p>';
         rc1='<p>建议哺喂：'+q1.toFixed(2)+'毫升</p>';
         advise=rc0+rc1;
